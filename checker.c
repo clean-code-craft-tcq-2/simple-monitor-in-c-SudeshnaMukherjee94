@@ -2,7 +2,7 @@
 #include <assert.h>
 
 int CheckRange (float Value, float LowerThreshold, float UpperThreshold){
-  if(Value < LowerThreshold || Value > UpperrThreshold) {
+  if(Value < LowerThreshold || Value > UpperThreshold) {
     printf("The value %.1f is out of range!\n", Value);
     return 1;
     }
