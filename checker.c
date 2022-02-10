@@ -1,37 +1,37 @@
 #include <stdio.h>
 #include <assert.h>
 
-int TemperatureIsOk (float temperature){
+int TemperatureIsNotOk (float temperature){
   if(temperature < 0 || temperature > 45) {
     printf("Temperature out of range!\n");
-    return 0;
+    return 1;
     }
-  else return 1;
+  else return 0;
 }
 
-int StateOutOfRange (float soc){
+int StateOfChargeOutOfRange (float soc){
   if(soc < 20 || soc > 80) {
     printf("State of Charge out of range!\n");
-    return 0;
+    return 1;
     }
-  else return 1;
+  else return 0;
 }
 
 int ChargeRateOutOfRange (float chargeRate){
   if(chargeRate > 0.8) {
     printf("Charge Rate out of range!\n");
-    return 0;
+    return 1;
     }
-  else return 1;
+  else return 0;
 }
   
 int batteryIsOk(float temp, float state, float charge) {
-  int Result = 0;
-  Result = TemperatureIsOk(temp) || StateOutOfRange(state) || ChargeRateOutOfRange(charge);
-  return Result;
+  int BatteryCondition = 0;
+  BatteryCondition = !(TemperatureIsNotOk(temp) || StateOfChargeOutOfRange(state) || ChargeRateOutOfRange(charge));
+  return BatteryCondition;
 }
 
 int main() {
-  assert(batteryIsOk(25, 70, 0.7));
-  assert(batteryIsOk(500, 850, 1) == 0);
+  assert(batteryIsOk(25, 70, 0.7) == 1); //battery condition is fine
+  assert(batteryIsOk(50, 85, 1) == 0);  //battery condition is not fine
 }
