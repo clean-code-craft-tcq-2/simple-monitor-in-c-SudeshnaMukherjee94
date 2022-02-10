@@ -1,25 +1,9 @@
 #include <stdio.h>
 #include <assert.h>
 
-int TemperatureIsNotOk (float temperature){
-  if(temperature < 0 || temperature > 45) {
-    printf("Temperature out of range!\n");
-    return 1;
-    }
-  else return 0;
-}
-
-int StateOfChargeOutOfRange (float soc){
-  if(soc < 20 || soc > 80) {
-    printf("State of Charge out of range!\n");
-    return 1;
-    }
-  else return 0;
-}
-
-int ChargeRateOutOfRange (float chargeRate){
-  if(chargeRate > 0.8) {
-    printf("Charge Rate out of range!\n");
+int CheckRange (float Value, float LowerThreshold, float UpperThreshold){
+  if(Value < LowerThreshold || Value > UpperrThreshold) {
+    printf("The value %.1f is out of range!\n", Value);
     return 1;
     }
   else return 0;
@@ -27,7 +11,7 @@ int ChargeRateOutOfRange (float chargeRate){
   
 int batteryIsOk(float temp, float state, float charge) {
   int BatteryCondition = 0;
-  BatteryCondition = !(TemperatureIsNotOk(temp) || StateOfChargeOutOfRange(state) || ChargeRateOutOfRange(charge));
+  BatteryCondition = !(CheckRange(temp,0,45) || CheckRange(state,20,80) || CheckRange(charge,0,0.8));
   return BatteryCondition;
 }
 
