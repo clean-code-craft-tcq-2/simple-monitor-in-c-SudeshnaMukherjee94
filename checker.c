@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-int CheckRange (float Value, float LowerThreshold, float UpperThreshold){
+int IsOutOfRange (float Value, float LowerThreshold, float UpperThreshold){
   if(Value < LowerThreshold || Value > UpperThreshold) {
     printf("The value %.1f is out of range!\n", Value);
     return 1;
@@ -11,7 +11,7 @@ int CheckRange (float Value, float LowerThreshold, float UpperThreshold){
   
 int batteryIsOk(float Temperature, float StateOfCharge, float RateOfCharge) {
   int BatteryCondition = 0;
-  BatteryCondition = !(CheckRange(Temperature,0,45) || CheckRange(StateOfCharge,20,80) || CheckRange(RateOfCharge,0,0.8));
+  BatteryCondition = !(IsOutOfRange(Temperature,0,45) || IsOutOfRange(StateOfCharge,20,80) || IsOutOfRange(RateOfCharge,0,0.8));
   return BatteryCondition;
 }
 
