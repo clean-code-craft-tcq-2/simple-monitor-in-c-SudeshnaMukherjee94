@@ -1,21 +1,20 @@
 #include <stdio.h>
 #include <assert.h>
+#include "CheckBatteryStatus.h"
 
-int batteryIsOk(float temperature, float soc, float chargeRate) {
-  if(temperature < 0 || temperature > 45) {
-    printf("Temperature out of range!\n");
-    return 0;
-  } else if(soc < 20 || soc > 80) {
-    printf("State of Charge out of range!\n");
-    return 0;
-  } else if(chargeRate > 0.8) {
-    printf("Charge Rate out of range!\n");
-    return 0;
-  }
-  return 1;
+void testCheckBatteryCondition(float stateOfCharge, float temp, float chargeRate, enum chosenLanguage language, int expStatus){
+	assert(checkBatteryCondition(stateOfCharge, temp, chargeRate, language) == expStatus);
 }
 
 int main() {
-  assert(batteryIsOk(25, 70, 0.7));
-  assert(!batteryIsOk(50, 85, 0));
+	testCheckBatteryCondition(45, 20, 0.6, English, 1);
+	testCheckBatteryCondition(90, 43, 0.6, English, 0);
+	testCheckBatteryCondition(92, 20, 0.63, German, 0);
+	testCheckBatteryCondition(2, 72, 0.9, German, 0);
+	testCheckBatteryCondition(21, 90, 0.63, English, 0);
+	testCheckBatteryCondition(23, 78, 0.67, English, 0);
+	testCheckBatteryCondition(21, 22, 0.59, English, 0);
+	testCheckBatteryCondition(22, 10, 0.52, German, 0);
+	testCheckBatteryCondition(21, 45, 0.91, German, 0);
+	testCheckBatteryCondition(25, 45, 0.01, German, 0);
 }
